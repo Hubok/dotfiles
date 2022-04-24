@@ -1,0 +1,27 @@
+user: [139, 233, 253]
+# group: 187
+permission:
+  read: [189, 147, 249]
+  write: [255, 121, 198]
+  exec: [139, 233, 253]
+  exec-sticky: [241, 250, 140]
+  no-access: [255, 85, 85]
+  # octal: 6
+  # acl: dark_cyan
+  # context: cyan
+date:
+  hour-old: [149, 165, 215]
+  day-old: [98, 114, 164]
+  older: [74, 88, 130]
+size:
+  none: [98, 114, 164]
+  small: [80, 250, 123]
+  medium: [255, 184, 108]
+  large: [255, 85, 85]
+inode:
+  valid: [248, 248, 242]
+  invalid: [255, 184, 108]
+links:
+  valid: [139, 233, 253]
+  invalid: [255, 85, 85]
+  # tree-edge: 245

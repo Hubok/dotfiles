@@ -1,0 +1,39 @@
+[diff]
+    pager = "delta"
+
+[merge]
+    command = "nvim"
+    args = ["-d", "{{`{{ .Destination }}`}}", "{{`{{ .Source }}`}}", "{{`{{ .Target }}`}}"]
+
+{{- $email := "" -}}
+{{- $name  := "" -}}
+{{- if hasKey . "email" -}}
+{{-   $email = .email -}}
+{{-   $name  = .name  -}}
+{{- else -}}
+{{-   $email = promptString "email" -}}
+{{-   $name  = promptString "name"  -}}
+{{- end -}}
+
+{{- $wttr_loc := "" -}}
+{{- if hasKey . "wttr_loc" -}}
+{{-   $wttr_loc = .wttr_loc -}}
+{{- else -}}
+{{-   $wttr_loc = promptString "wttr_loc" -}}
+{{- end -}}
+
+{{- $nvim_plugin_dir := "" -}}
+{{- if hasKey . "nvim_plugin_dir" -}}
+{{-   $nvim_plugin_dir = .nvim_plugin_dir -}}
+{{- else -}}
+{{-   $nvim_plugin_dir = promptString "nvim_plugin_dir" -}}
+{{- end }}
+
+[data]
+    email = {{ $email | quote }}
+    name  = {{ $name  | quote }}
+
+    wttr_loc  = {{ $wttr_loc  | quote }}
+
+    nvim_plugin_dir  = {{ $nvim_plugin_dir  | quote }}
+

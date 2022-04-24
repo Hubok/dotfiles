@@ -1,0 +1,27 @@
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# set PATH so it includes go binary if it exists
+if [ -d "/usr/local/go/bin" ] ; then
+    PATH="$PATH:/usr/local/go/bin"
+fi
+
+# set PATH so it includes go bin folder if it exists
+if [ -d "$(go env GOPATH)/bin" ] ; then
+    PATH="$PATH:$(go env GOPATH)/bin"
+fi
+
+export PATH="$PATH:$HOME/.dotnet/tools"
+
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="/mnt/d/Development"

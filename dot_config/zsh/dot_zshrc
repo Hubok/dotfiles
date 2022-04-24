@@ -1,0 +1,95 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Lines configured by zsh-newuser-install
+HISTSIZE=1000
+SAVEHIST=1000
+setopt autocd beep extendedglob nomatch
+unsetopt notify
+bindkey -v
+# End of lines configured by zsh-newuser-install
+
+alias ls="ls --color=auto"
+
+# Compinit XDG config
+declare -A ZINIT
+ZINIT[ZCOMPDUMP_PATH]=$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
+
+# The following lines were added by compinstall
+zstyle :compinstall filename "$ZDOTDIR:/.zshrc"
+# End of lines added by compinstall
+
+### Added by Zinit's installer
+if [[ ! -f $XDG_DATA_HOME/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$XDG_DATA_HOME/zinit" && command chmod g-rwX "$XDG_DATA_HOME/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$XDG_DATA_HOME/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$XDG_DATA_HOME/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+### End of Zinit's installer chunk
+
+# Install dracula stuff
+# dircolors for use with ls filenames
+# lsd colors were manually created off of colorls theme
+zinit ice wait lucid as'null' \
+	cp".dircolors -> $XDG_CONFIG_HOME/dircolors" \
+	atclone'eval $(dircolors -b "$XDG_CONFIG_HOME"/dircolors)' \
+	atpull'%atclone' \
+	atload'eval $(dircolors -b "$XDG_CONFIG_HOME"/dircolors); zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zinit load dracula/dircolors
+
+# git theme
+zinit ice wait lucid as'null' \
+	cp"config/gitconfig -> $XDG_CONFIG_HOME/git/dracula.gittheme"
+zinit load dracula/git
+
+# nvim theme managed in it's own plugin repo using submodules
+
+# powerlevel10k theme
+zinit ice wait lucid as'null' \
+	mv"$XDG_CONFIG_HOME/zsh/.p10k.zsh -> $XDG_CONFIG_HOME/zsh/.p10k.zsh.old" \
+	cp"files/.p10k.zsh -> $XDG_CONFIG_HOME/zsh/.p10k.zsh" \
+	atclone"delta $XDG_CONFIG_HOME/zsh/.p10k.zsh{.old,}" \
+	atpull'%atclone'
+zinit load dracula/powerlevel10k
+
+# tmux theme managed by tpm in tmux.conf
+
+# zsh-syntax-highlighting
+zinit ice wait lucid
+zinit load dracula/zsh-syntax-highlighting
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+zinit ice depth"1" atload"source $XDG_CONFIG_HOME/zsh/.p10k.zsh"
+zinit light romkatv/powerlevel10k
+
+zinit wait lucid for \
+	atload"zicompinit; zicdreplay" \
+		zsh-users/zsh-syntax-highlighting \
+	atload"_zsh_autosuggest_start" \
+		zsh-users/zsh-autosuggestions \
+	blockf atpull'zinit creinstall -q .' \
+		zsh-users/zsh-completions \
+	atinit"autoload -Uz colors && colors" \
+		OMZP::colored-man-pages \
+	OMZP::git-flow-avh
+
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
