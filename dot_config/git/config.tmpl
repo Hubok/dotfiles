@@ -1,6 +1,17 @@
+[advice]
+    detachedHead = false
+    addIgnoredFile = false
+
 [user]
+    signingkey = 0x210132EA44C4F4E6
 	email = {{ .email }}
-	name = {{ .name }}
+    name = {{ .name }}
+[commit]
+    gpgsign = true
+[pull]
+    rebase = false
+[submodule]
+    recurse = true
 [core]
 	editor = nvim
 
@@ -56,7 +67,8 @@
 
 [merge]
     conflictstyle = diff3
-
+[init]
+    defaultBranch = master
 [include]
 	path = dracula.gittheme
 
