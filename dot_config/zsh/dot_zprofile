@@ -22,6 +22,6 @@ fi
 
 export PATH="$PATH:$HOME/.dotnet/tools"
 
-export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
-export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
-export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="/mnt/d/Development"
+#export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+#export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+#export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="/mnt/d/Development"
