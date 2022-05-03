@@ -1,5 +1,0 @@
-[".local/share/nvim/site/pack/{{ .nvim_plugin_dir }}/opt/dracula"]
-    type = "git-repo"
-    url = "https://github.com/dracula/vim.git"
-    refreshPeriod = "168h"
-
