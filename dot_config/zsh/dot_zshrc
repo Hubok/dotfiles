@@ -91,7 +91,8 @@ zinit light romkatv/powerlevel10k
 
 # Completions need to go before the zicompinit statement
 zinit ice blockf
-zinit snippet "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
+#zinit snippet "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
+zinit snippet /usr/share/fzf/shell/key-bindings.zsh
 
 zinit ice has"chezmoi" id-as"chezmoi-completion" as"completion" \
     atclone"chezmoi completion zsh > _chezmoi" \
